@@ -1,38 +1,137 @@
 /* -------------------  MOBILE  --------------------- */
 
 body {
-  display: flex;
-  flex-direction: column;
-  font-family: Arial;
-  min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	font-family: Arial;
+	min-height: 100vh;
 }
 
 header {
-  /* header styles */
+	/* header styles */
 }
 
 main {
-  flex: 1;
-  padding: 20px;
+	flex: 1;
+	padding: 20px;
+}
+
+#rovers {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+#rovers > button {
+	width: 120px;
+	height: 30px;
+	margin: 7px 20px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-weight: bold;
+}
+
+#info {
+	display: flex;
+	flex-direction: column;
+}
+
+#roverInfo {
+	display: flex;
+	margin: 10px 0;
+}
+
+#roverInfo > ul {
+	display: flex;
+	flex-direction: column;
+	padding-inline-start: 0;
+	margin-left: 20px;
+}
+
+#roverInfo > ul > li {
+	list-style: none;
+	padding: 10px 0;
+	font-size: 0.8rem;
+}
+
+#roverPhoto {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+}
+
+#roverPhoto > ul {
+	display: flex;
+	flex-wrap: wrap;
+	padding-inline: 0;
+}
+
+#roverPhoto > ul > li {
+	list-style: none;
+	margin: 10px auto;
+}
+
+.mostRecentPhotoFromRover {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	margin-bottom: 30px;
+	padding: 5px;
+	width: 250px;
 }
 
 footer {
-  /* footer styles */
+	/* footer styles */
 }
 
 /* -------------------  TABLET  --------------------- */
 @media (min-width: 768px) {
-  /* use mobile */
+	#rovers {
+		flex-direction: column;
+	}
+
+	.mostRecentPhotoFromRover {
+		width: 360px;
+		margin: 20px;
+	}
 }
 
 /* -------------------  DESKTOP  -------------------- */
 
 @media (min-width: 1224px) {
-  /* use mobile */
+	/* use mobile */
+	body {
+		width: 85%;
+		margin: 50px auto;
+	}
+
+	#rovers {
+		flex-direction: column;
+	}
+
+	#rovers > button {
+		width: 200px;
+		height: 30px;
+		margin: 7px 20px;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+		font-size: 1.1rem;
+		font-weight: bold;
+	}
+
+	#roverPhoto {
+		flex-wrap: wrap;
+		justify-content: space-evenly;
+	}
+
+	.mostRecentPhotoFromRover {
+		width: 400px;
+		margin: 10px;
+	}
 }
 
 /* -------------------  LARGE SCREENS  -------------- */
 
 @media (min-width: 1824px) {
-  /* use mobile */
+	/* use mobile */
 }
