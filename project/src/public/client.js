@@ -21,6 +21,54 @@ const App = (state) => {
 	let { rovers, apod } = state;
 
 	return `
+        <main>
+			<section id='info'>
+				<div id='roverInfo'>
+					<ul>
+						<li>Launch Date: </li>
+						<li>Landing Date: </li>
+						<li>Status: </li>
+						<li>Date the most recent photos were taken: </li>
+						<li>Most recently available photos: </li>
+					</ul>
+				</div>
+				<div id='roverPhoto'>
+					<ul>
+						<li><img class="mostRecentPhotoFromRover"
+								src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/1024px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg">
+						</li>
+						<li><img class="mostRecentPhotoFromRover"
+								src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/1024px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg">
+						</li>
+						<li><img class="mostRecentPhotoFromRover"
+								src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/1024px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg">
+						</li>
+						<li><img class="mostRecentPhotoFromRover"
+								src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/1024px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg">
+						</li>
+						<li><img class="mostRecentPhotoFromRover"
+								src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/1024px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg">
+						</li>
+						<li><img class="mostRecentPhotoFromRover"
+								src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/1024px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg">
+						</li>
+						<li><img class="mostRecentPhotoFromRover"
+								src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/1024px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg">
+						</li>
+						<li><img class="mostRecentPhotoFromRover"
+								src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/1024px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg">
+						</li>
+					</ul>
+				</div>
+			</section>
+        </main>
+        <footer></footer>
+    `;
+};
+const AppOld = (state) => {
+	let { rovers, apod } = state;
+
+	return `
         <header></header>
         <main>
             ${Greeting(store.user.name)}
@@ -93,16 +141,6 @@ const ImageOfTheDay = (apod) => {
 // ------------------------------------------------------  API CALLS
 
 // Example API call
-const getImageOfRovers = () => {
-	// let { apod } = state;
-
-	fetch(`http://localhost:3000/rovers`).then(console.log("fatched"));
-	// .then((res) => res.json())
-	// 	.then((apod) => updateStore(store, { apod }));
-
-	// return data;
-};
-
 const getImageOfTheDay = (state) => {
 	let { apod } = state;
 
@@ -111,4 +149,34 @@ const getImageOfTheDay = (state) => {
 		.then((apod) => updateStore(store, { apod }));
 
 	return data;
+};
+
+// rover's photo API call
+const navButtons = document.getElementsByClassName("nav-rovers");
+const navButtonsArray = [...navButtons];
+navButtonsArray.forEach((buttonHTMLElement) => {
+	buttonHTMLElement.addEventListener("click", function navButtonsHandler(e) {
+		const buttonHTMLElementValue = e.target.value;
+		console.log(buttonHTMLElementValue);
+		getRoverData(`/rovers`, buttonHTMLElementValue);
+	});
+});
+
+const getRoverData = async (url = "", data) => {
+	console.log(data);
+	
+		method: 'POST', 
+		credentials: 'same-origin',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(data),
+   }
+	try {
+		const newRoverData = await response.json();
+		console.log(getRoverData);
+		// return getRoverData;
+	} catch (error) {
+		console.log("error", error);
+	}
 };

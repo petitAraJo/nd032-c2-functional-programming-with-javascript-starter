@@ -86,10 +86,6 @@ footer {
 
 /* -------------------  TABLET  --------------------- */
 @media (min-width: 768px) {
-	#rovers {
-		flex-direction: column;
-	}
-
 	.mostRecentPhotoFromRover {
 		width: 360px;
 		margin: 20px;
@@ -105,14 +101,10 @@ footer {
 		margin: 50px auto;
 	}
 
-	#rovers {
-		flex-direction: column;
-	}
-
 	#rovers > button {
 		width: 200px;
 		height: 30px;
-		margin: 7px 20px;
+		margin: 7px 250px;
 		border: 1px solid #ddd;
 		border-radius: 4px;
 		font-size: 1.1rem;
