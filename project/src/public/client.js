@@ -2,6 +2,18 @@ let store = {
 	user: { name: "Student" },
 	apod: "",
 	rovers: ["Curiosity", "Opportunity", "Spirit"],
+	roverData: [
+		{
+			rover: {
+				name: "",
+				launchDate: "",
+				landingDate: "",
+				status: "",
+				recentDate: "",
+			},
+			earthDate: "",
+		},
+	],
 };
 
 // add our markup to the page
@@ -18,17 +30,18 @@ const render = async (root, state) => {
 
 // create content
 const App = (state) => {
-	let { rovers, apod } = state;
+	let { roverData } = state;
 
 	return `
         <main>
+			<h1>${roverData[0].rover.name}</h1>
 			<section id='info'>
 				<div id='roverInfo'>
 					<ul>
-						<li>Launch Date: </li>
-						<li>Landing Date: </li>
-						<li>Status: </li>
-						<li>Date the most recent photos were taken: </li>
+						<li>Launch Date: ${roverData[0].rover.launch_date}</li>
+						<li>Landing Date: ${roverData[0].rover.landing_date}</li>
+						<li>Status: ${roverData[0].rover.status}</li>
+						<li>Date the most recent photos were taken: ${roverData[0].earth_date}</li>
 						<li>Most recently available photos: </li>
 					</ul>
 				</div>
@@ -162,21 +175,26 @@ navButtonsArray.forEach((buttonHTMLElement) => {
 	});
 });
 
-const getRoverData = async (url = "", data) => {
-	console.log(data);
-	
-		method: 'POST', 
-		credentials: 'same-origin',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(data),
-   }
-	try {
-		const newRoverData = await response.json();
-		console.log(getRoverData);
-		// return getRoverData;
-	} catch (error) {
-		console.log("error", error);
-	}
+const getRoverData = async (state) => {
+	const responseRoverData = await fetch(
+		`http://localhost:3000/rovers/curiosity`
+	);
+	const roverData = await responseRoverData.json();
+	updateStore(store, { roverData });
+	console.log(roverData);
+
+	// return data;
 };
+
+// async function getRoverData(state) {
+// 	// let { apod } = state;
+
+// 	try {
+// 		const responseRoverData = await `http://localhost:3000/rover/:name`;
+// 		const roverData = await responseRoverData.json();
+// 		console.log(roverData);
+// 		// .then((apod) => updateStore(store, { apod }));
+// 	} catch (error) {
+// 		console.log("error", error);
+// 	}
+// }

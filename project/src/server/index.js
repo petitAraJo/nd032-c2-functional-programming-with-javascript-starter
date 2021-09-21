@@ -35,15 +35,11 @@ async function roversHandler(request, response) {
 			);
 			const roverAPIsData = await roverAPIGet.json();
 			const roverAPIPhotoData = roverAPIsData.photos;
-			console.log({
-				roverAPIPhotoData,
-			});
-			// const {roverManifestsData.photo_manifest.name,  }
-			// 		// res.send({ roversImage });
+			// console.log(roverAPIPhotoData);
 			return response.status(200).json(roverAPIPhotoData);
 		} catch (err) {
 			console.log("error:", err);
-			response.send("not working " + request.params.name);
+			response.send("Something wrong " + request.params.name);
 		}
 	} else {
 		response.status(404).send("Sorry, Rover name is not exist");
