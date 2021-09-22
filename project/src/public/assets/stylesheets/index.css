@@ -12,6 +12,7 @@ header {
 }
 
 main {
+	display: none;
 	flex: 1;
 	padding: 20px;
 }

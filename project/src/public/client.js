@@ -43,7 +43,7 @@ const App = (state) => {
 				</div>
 				<div id='roverPhoto'>
 					<ul>
-					${roverData.listOfPhotos.join()}
+					${roverData.listOfPhotos.join("")}
 						
 					</ul>
 				</div>
@@ -169,9 +169,9 @@ const getRoverData = async (state) => {
 		listOfPhotos: roverListOfPhotos,
 	};
 	updateStore(store, { roverData });
-
-	console.log(store);
-	// return data;
+	// console.log(store);
+	const mainHTMLElement = document.getElementById("root").children[0];
+	mainHTMLElement.style.display = "block";
 };
 
 // async function getRoverData(state) {
