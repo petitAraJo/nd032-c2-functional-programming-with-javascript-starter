@@ -2,18 +2,14 @@ let store = {
 	user: { name: "Student" },
 	apod: "",
 	rovers: ["Curiosity", "Opportunity", "Spirit"],
-	roverData: [
-		{
-			rover: {
-				name: "",
-				launchDate: "",
-				landingDate: "",
-				status: "",
-				recentDate: "",
-			},
-			earthDate: "",
-		},
-	],
+	roverData: {
+		name: "",
+		launchDate: "",
+		landingDate: "",
+		status: "",
+		earthDate: "",
+		listOfPhotos: [],
+	},
 };
 
 // add our markup to the page
@@ -34,43 +30,21 @@ const App = (state) => {
 
 	return `
         <main>
-			<h1>${roverData[0].rover.name}</h1>
+			<h1>${roverData.name}</h1>
 			<section id='info'>
 				<div id='roverInfo'>
 					<ul>
-						<li>Launch Date: ${roverData[0].rover.launch_date}</li>
-						<li>Landing Date: ${roverData[0].rover.landing_date}</li>
-						<li>Status: ${roverData[0].rover.status}</li>
-						<li>Date the most recent photos were taken: ${roverData[0].earth_date}</li>
+						<li>Launch Date: ${roverData.launchDate}</li>
+						<li>Landing Date: ${roverData.landingDate}</li>
+						<li>Status: ${roverData.status}</li>
+						<li>Date the most recent photos were taken: ${roverData.earthDate}</li>
 						<li>Most recently available photos: </li>
 					</ul>
 				</div>
 				<div id='roverPhoto'>
 					<ul>
-						<li><img class="mostRecentPhotoFromRover"
-								src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/1024px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg">
-						</li>
-						<li><img class="mostRecentPhotoFromRover"
-								src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/1024px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg">
-						</li>
-						<li><img class="mostRecentPhotoFromRover"
-								src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/1024px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg">
-						</li>
-						<li><img class="mostRecentPhotoFromRover"
-								src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/1024px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg">
-						</li>
-						<li><img class="mostRecentPhotoFromRover"
-								src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/1024px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg">
-						</li>
-						<li><img class="mostRecentPhotoFromRover"
-								src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/1024px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg">
-						</li>
-						<li><img class="mostRecentPhotoFromRover"
-								src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/1024px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg">
-						</li>
-						<li><img class="mostRecentPhotoFromRover"
-								src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/1024px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg">
-						</li>
+					${roverData.listOfPhotos.join()}
+						
 					</ul>
 				</div>
 			</section>
@@ -179,10 +153,24 @@ const getRoverData = async (state) => {
 	const responseRoverData = await fetch(
 		`http://localhost:3000/rovers/curiosity`
 	);
-	const roverData = await responseRoverData.json();
-	updateStore(store, { roverData });
-	console.log(roverData);
+	const roverResposnseInfo = await responseRoverData.json();
+	const tenRoversInfo = roverResposnseInfo.slice(0, 10);
+	// console.log(tenRoversInfo);
+	const roverListOfPhotos = tenRoversInfo.map((roverInfo) => {
+		return `<li><img class="mostRecentPhotoFromRover" src="${roverInfo.img_src}"></li>`;
+	});
 
+	const roverData = {
+		name: tenRoversInfo[0].rover.name,
+		landingDate: tenRoversInfo[0].rover.landing_date,
+		launchDate: tenRoversInfo[0].rover.launch_date,
+		status: tenRoversInfo[0].rover.status,
+		earthDate: tenRoversInfo[0].earth_date,
+		listOfPhotos: roverListOfPhotos,
+	};
+	updateStore(store, { roverData });
+
+	console.log(store);
 	// return data;
 };
 
