@@ -30,10 +30,11 @@ const App = (state) => {
 
 	return `
         <main>
-			<h1>${roverData.name}</h1>
+		${Greeting(store.user.name)}
 			<section id='info'>
 				<div id='roverInfo'>
 					<ul>
+						<li>Rover Name: ${roverData.name}</li>
 						<li>Launch Date: ${roverData.launchDate}</li>
 						<li>Landing Date: ${roverData.landingDate}</li>
 						<li>Status: ${roverData.status}</li>
@@ -72,7 +73,6 @@ const AppOld = (state) => {
                 </p>
                 ${ImageOfTheDay(apod)}
             </section>
-            <button id='curiosity'>curiosity</button>
         </main>
         <footer></footer>
     `;
@@ -144,14 +144,13 @@ const navButtonsArray = [...navButtons];
 navButtonsArray.forEach((buttonHTMLElement) => {
 	buttonHTMLElement.addEventListener("click", function navButtonsHandler(e) {
 		const buttonHTMLElementValue = e.target.value;
-		console.log(buttonHTMLElementValue);
 		getRoverData(`/rovers`, buttonHTMLElementValue);
 	});
 });
 
-const getRoverData = async (state) => {
+const getRoverData = async (state, mychoiceOfRover) => {
 	const responseRoverData = await fetch(
-		`http://localhost:3000/rovers/curiosity`
+		`http://localhost:3000/rovers/${mychoiceOfRover}`
 	);
 	const roverResposnseInfo = await responseRoverData.json();
 	const tenRoversInfo = roverResposnseInfo.slice(0, 10);
@@ -173,16 +172,3 @@ const getRoverData = async (state) => {
 	const mainHTMLElement = document.getElementById("root").children[0];
 	mainHTMLElement.style.display = "block";
 };
-
-// async function getRoverData(state) {
-// 	// let { apod } = state;
-
-// 	try {
-// 		const responseRoverData = await `http://localhost:3000/rover/:name`;
-// 		const roverData = await responseRoverData.json();
-// 		console.log(roverData);
-// 		// .then((apod) => updateStore(store, { apod }));
-// 	} catch (error) {
-// 		console.log("error", error);
-// 	}
-// }

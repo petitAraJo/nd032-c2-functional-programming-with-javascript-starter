@@ -35,7 +35,7 @@ async function roversHandler(request, response) {
 			);
 			const roverAPIsData = await roverAPIGet.json();
 			const roverAPIPhotoData = roverAPIsData.photos;
-			// console.log(roverAPIPhotoData);
+
 			return response.status(200).json(roverAPIPhotoData);
 		} catch (err) {
 			console.log("error:", err);

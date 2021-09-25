@@ -1,6 +1,9 @@
 /* -------------------  MOBILE  --------------------- */
 
 body {
+	background-image: url("https://mars.nasa.gov/system/resources/detail_files/25466_PIA24343-web.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
 	display: flex;
 	flex-direction: column;
 	font-family: Arial;
@@ -8,28 +11,35 @@ body {
 }
 
 header {
-	/* header styles */
-}
-
-main {
-	display: none;
-	flex: 1;
-	padding: 20px;
+	display: flex;
 }
 
 #rovers {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
+	justify-content: center;
 }
 
-#rovers > button {
-	width: 120px;
-	height: 30px;
-	margin: 7px 20px;
+.nav-rovers {
+	opacity: 0.5;
+	width: 300px;
+	height: 200px;
+	margin: 15px 20px;
 	border: 1px solid #ddd;
 	border-radius: 4px;
 	font-weight: bold;
+}
+
+.nav-rovers:hover {
+	opacity: 0.8;
+	font-size: larger;
+}
+
+main {
+	display: none;
+	flex: 1;
+	padding: 20px;
 }
 
 #info {
@@ -81,10 +91,6 @@ main {
 	width: 250px;
 }
 
-footer {
-	/* footer styles */
-}
-
 /* -------------------  TABLET  --------------------- */
 @media (min-width: 768px) {
 	.mostRecentPhotoFromRover {
@@ -93,6 +99,9 @@ footer {
 	}
 }
 
+#roverInfo > ul > li {
+	font-size: 0.9rem;
+}
 /* -------------------  DESKTOP  -------------------- */
 
 @media (min-width: 1224px) {
@@ -102,14 +111,19 @@ footer {
 		margin: 50px auto;
 	}
 
-	#rovers > button {
-		width: 200px;
-		height: 30px;
+	.nav-rovers {
 		margin: 7px 20px;
 		border: 1px solid #ddd;
 		border-radius: 4px;
 		font-size: 1.1rem;
 		font-weight: bold;
+	}
+
+	#roverInfo > ul > li {
+		list-style: none;
+		padding: 10px 0;
+		margin-bottom: 5px;
+		font-size: 1rem;
 	}
 
 	#roverPhoto {
