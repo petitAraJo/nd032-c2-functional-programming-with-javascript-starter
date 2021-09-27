@@ -153,18 +153,17 @@ const getRoverData = async (state, mychoiceOfRover) => {
 		`http://localhost:3000/rovers/${mychoiceOfRover}`
 	);
 	const roverResposnseInfo = await responseRoverData.json();
-	const tenRoversInfo = roverResposnseInfo.slice(0, 10);
-	// console.log(tenRoversInfo);
-	const roverListOfPhotos = tenRoversInfo.map((roverInfo) => {
+	// console.log(roverResposnseInfo);
+	const roverListOfPhotos = roverResposnseInfo.map((roverInfo) => {
 		return `<li><img class="mostRecentPhotoFromRover" src="${roverInfo.img_src}"></li>`;
 	});
 
 	const roverData = {
-		name: tenRoversInfo[0].rover.name,
-		landingDate: tenRoversInfo[0].rover.landing_date,
-		launchDate: tenRoversInfo[0].rover.launch_date,
-		status: tenRoversInfo[0].rover.status,
-		earthDate: tenRoversInfo[0].earth_date,
+		name: roverResposnseInfo[0].rover.name,
+		landingDate: roverResposnseInfo[0].rover.landing_date,
+		launchDate: roverResposnseInfo[0].rover.launch_date,
+		status: roverResposnseInfo[0].rover.status,
+		earthDate: roverResposnseInfo[0].earth_date,
 		listOfPhotos: roverListOfPhotos,
 	};
 	updateStore(store, { roverData });

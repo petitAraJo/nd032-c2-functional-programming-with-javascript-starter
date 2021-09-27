@@ -35,8 +35,12 @@ async function roversHandler(request, response) {
 			);
 			const roverAPIsData = await roverAPIGet.json();
 			const roverAPIPhotoData = roverAPIsData.photos;
-
-			return response.status(200).json(roverAPIPhotoData);
+			const randomTenPhotoData = await shuffle(roverAPIPhotoData).slice(
+				0,
+				10
+			);
+			// console.log(randomTenPhotoData);
+			return response.status(200).json(randomTenPhotoData);
 		} catch (err) {
 			console.log("error:", err);
 			response.send("Something wrong " + request.params.name);
@@ -44,6 +48,14 @@ async function roversHandler(request, response) {
 	} else {
 		response.status(404).send("Sorry, Rover name is not exist");
 	}
+}
+
+function shuffle(array) {
+	for (let i = array.length - 1; i > 0; i--) {
+		const j = Math.floor(Math.random() * (i + 1));
+		[array[i], array[j]] = [array[j], array[i]];
+	}
+	return array;
 }
 
 // async function geoHandler(req, res) {
